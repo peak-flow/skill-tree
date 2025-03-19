@@ -1,60 +1,83 @@
 /* Custom styles for skill tree */
 
-.skill-container {
-    height: 600px;
+body {
+    overflow: hidden;
+    background-color: #0f172a;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
 }
 
 .skill-node {
     position: absolute;
-    width: 120px;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: white;
-    border: 2px solid #3b82f6;
     cursor: pointer;
     -webkit-user-select: none;
     user-select: none;
     transition: transform 0.1s, box-shadow 0.1s;
     z-index: 10;
-}
-
-.skill-node.selected {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-    z-index: 20;
+    transform: translate(-50%, -50%);
 }
 
 .skill-node:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    filter: brightness(1.2);
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.skill-node-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    border: 2px solid;
+    white-space: nowrap;
+}
+
+.skill-node.selected .skill-node-content {
+    background-color: #1e3a8a; /* Solid dark blue */
+    border-color: #22c55e;
+    z-index: 20;
+}
+
+.skill-node.child .skill-node-content {
+    background-color: #7e22ce; /* Solid purple */
+    border-color: #f59e0b;
+}
+
+.skill-node:not(.selected):not(.child) .skill-node-content {
+    background-color: #1e40af; /* Solid blue */
+    border-color: #ffffff;
 }
 
 .node-title {
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 4px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: white;
 }
 
 .node-title[contenteditable="true"] {
-    border-bottom: 1px dashed #ccc;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
     outline: none;
 }
 
 /* Context menu */
 .context-menu {
     position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     z-index: 100;
+    color: white;
 }
 
 .context-menu-item {
     padding: 8px 12px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .context-menu-item:hover {
-    background-color: #f3f4f6;
+    background-color: rgba(59, 130, 246, 0.5);
 }
