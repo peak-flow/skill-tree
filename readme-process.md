@@ -27,6 +27,11 @@ This document tracks the implementation steps and changes made to the Skill Tree
 ## Updates (March 19, 2025)
 - Added an "Add Root Node" button to the UI for easier node creation
 - Fixed context menu to properly close after selecting an action or clicking outside
+- Updated UI with dark theme and grid background
+- Improved node styling with rounded pill design and solid color backgrounds
+- Added straight connection lines with directional arrows
+- Added color-coding for different node types (root, child, selected)
+- Enhanced node dragging to allow dragging from any part of the node, including the title area
 
 ## Next Steps
 - Testing and refinement
