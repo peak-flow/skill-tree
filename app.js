@@ -157,7 +157,7 @@ function skillTree() {
         
         // Rendering
         renderNodes() {
-            const container = document.querySelector('.relative.w-full.h-full');
+            const container = document.querySelector('.absolute.inset-0.z-10');
             
             // Clear existing nodes
             container.innerHTML = '';
@@ -165,12 +165,16 @@ function skillTree() {
             // Create node elements
             this.nodes.forEach(node => {
                 const nodeElement = document.createElement('div');
-                nodeElement.className = `skill-node ${node.id === this.selectedNodeId ? 'selected' : ''}`;
+                const isChild = node.parentId !== null;
+                nodeElement.className = `skill-node ${node.id === this.selectedNodeId ? 'selected' : ''} ${isChild ? 'child' : ''}`;
                 nodeElement.style.left = `${node.x}px`;
                 nodeElement.style.top = `${node.y}px`;
                 nodeElement.setAttribute('data-node-id', node.id);
                 
-                const titleElement = document.createElement('div');
+                const nodeContent = document.createElement('div');
+                nodeContent.className = 'skill-node-content';
+                
+                const titleElement = document.createElement('span');
                 titleElement.className = 'node-title';
                 titleElement.setAttribute('contenteditable', 'true');
                 titleElement.textContent = node.title;
@@ -194,11 +198,12 @@ function skillTree() {
                     e.stopPropagation();
                 });
                 
-                nodeElement.appendChild(titleElement);
+                nodeContent.appendChild(titleElement);
+                nodeElement.appendChild(nodeContent);
                 
                 // Node selection
                 nodeElement.addEventListener('click', (e) => {
-                    if (e.target === nodeElement || e.target === titleElement) {
+                    if (!e.target.closest('[contenteditable]')) {
                         this.selectNode(node.id);
                     }
                 });
@@ -311,10 +316,10 @@ function skillTree() {
                         
                         // Draw connection
                         this.drawConnection(
-                            parentNode.x + 60, // Center of parent node
-                            parentNode.y + 20,
-                            node.x + 60, // Center of child node
-                            node.y + 20,
+                            parentNode.x, // Center of parent node (x is already centered with transform)
+                            parentNode.y,
+                            node.x, // Center of child node
+                            node.y,
                             isHighlighted
                         );
                     }
@@ -323,16 +328,17 @@ function skillTree() {
         },
         
         drawConnection(x1, y1, x2, y2, isHighlighted) {
+            // Draw a straight line between nodes
             this.ctx.beginPath();
             this.ctx.moveTo(x1, y1);
             this.ctx.lineTo(x2, y2);
             
             // Style based on highlight state
             if (isHighlighted) {
-                this.ctx.strokeStyle = '#2563eb'; // Bright blue
+                this.ctx.strokeStyle = '#22c55e'; // Green for highlighted
                 this.ctx.lineWidth = 3;
             } else {
-                this.ctx.strokeStyle = '#94a3b8'; // Light gray
+                this.ctx.strokeStyle = '#f59e0b'; // Orange for connections
                 this.ctx.lineWidth = 2;
             }
             
@@ -354,7 +360,7 @@ function skillTree() {
             );
             this.ctx.closePath();
             
-            this.ctx.fillStyle = isHighlighted ? '#2563eb' : '#94a3b8';
+            this.ctx.fillStyle = isHighlighted ? '#22c55e' : '#f59e0b';
             this.ctx.fill();
         },
         
