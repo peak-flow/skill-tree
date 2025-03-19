@@ -41,6 +41,7 @@ function skillTree() {
                 // Close context menu when clicking elsewhere
                 if (this.showContextMenu && !e.target.closest('.context-menu')) {
                     this.showContextMenu = false;
+                    this.renderContextMenu(); // Remove the menu from DOM
                 }
             });
         },
@@ -274,6 +275,7 @@ function skillTree() {
             addChildItem.addEventListener('click', () => {
                 this.addNode(this.contextMenuNodeId);
                 this.showContextMenu = false;
+                this.renderContextMenu(); // Remove the menu from DOM
             });
             
             const removeItem = document.createElement('div');
@@ -282,6 +284,7 @@ function skillTree() {
             removeItem.addEventListener('click', () => {
                 this.removeNode(this.contextMenuNodeId);
                 this.showContextMenu = false;
+                this.renderContextMenu(); // Remove the menu from DOM
             });
             
             menu.appendChild(addChildItem);

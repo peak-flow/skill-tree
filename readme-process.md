@@ -24,6 +24,10 @@ This document tracks the implementation steps and changes made to the Skill Tree
 - [x] Right-click context menu
 - [x] Node title editing
 
+## Updates (March 19, 2025)
+- Added an "Add Root Node" button to the UI for easier node creation
+- Fixed context menu to properly close after selecting an action or clicking outside
+
 ## Next Steps
 - Testing and refinement
 - Performance optimization
